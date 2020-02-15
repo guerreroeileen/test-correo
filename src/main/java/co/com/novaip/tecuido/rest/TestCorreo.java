@@ -18,12 +18,12 @@ public class TestCorreo {
 	@GetMapping("/correo")
 	public String probarCorreo() throws Exception {
 		ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
-		ExchangeCredentials credentials = new WebCredentials("pruebanovamedia", "novamedia123");
+		ExchangeCredentials credentials = new WebCredentials("username", "password");
 		service.setCredentials(credentials);
 		//service.setEnableScpLookup(true);
 		//service.setUrl(new java.net.URI("https://webmail.travelpro.com"));
 		
-		service.autodiscoverUrl("pruebanovamedia@outlook.com", new IAutodiscoverRedirectionUrl() {
+		service.autodiscoverUrl("username@domainemail.com", new IAutodiscoverRedirectionUrl() {
 			@Override
 			public boolean autodiscoverRedirectionUrlValidationCallback(String url) throws AutodiscoverLocalException {
 				return url.toLowerCase().startsWith("https://");
@@ -33,7 +33,7 @@ public class TestCorreo {
 		EmailMessage msg = new EmailMessage(service);
         msg.setSubject("Hello world!");
         msg.setBody(MessageBody.getMessageBodyFromText("Sent using the EWS Java API."));
-        msg.getToRecipients().add("eileenguerrerogomez@outlook.es");
+        msg.getToRecipients().add("usertosend@domainemail.com");
         msg.send();
         
         
